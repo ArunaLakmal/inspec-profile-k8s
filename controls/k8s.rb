@@ -249,3 +249,24 @@ control "k8s-8" do
     end
   end
 end
+
+control "k8s-9" do
+  impact 0.8
+
+  title "Custom Rule For Testing"
+
+  desc "By default, This should be true"
+  desc "remediation", "Nothing anyway this will be there"
+  desc "validation", "Check your Temp directory"
+
+  tag platform: "K8S"
+  tag category: "Test Query"
+  tag resource: "Pods"
+  tag effort: 0.3
+
+  ref "Follow for more info", url: "https://www.techcrumble.net"
+
+  describe file('/tmp') do
+    it { should be_directory }
+  end
+end
