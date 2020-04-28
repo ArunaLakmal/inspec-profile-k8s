@@ -251,22 +251,23 @@ control "k8s-8" do
 end
 
 control "k8s-9" do
-  impact 0.8
+  impact 0.4
 
-  title "Custom Rule For Testing"
+  title "Custom Rule To Check A POD Name with my-pod"
 
-  desc "By default, This should be true"
-  desc "remediation", "Nothing anyway this will be there"
-  desc "validation", "Check your Temp directory"
+  desc "There should not be a POD with the name of my pod and after creating the pod this test should be passed - As Aruna"
+  desc "remediation", "Create a POD with the name of my-pod - As Aruna"
+  desc "validation", "Check your POD Names - As Aruna"
 
   tag platform: "K8S"
-  tag category: "Test Query"
+  tag category: "Test POD Validation Test"
   tag resource: "Pods"
   tag effort: 0.3
 
   ref "Follow for more info", url: "https://www.techcrumble.net"
 
-  describe file('/tmp') do
-    it { should be_directory }
+  describe k8sobject(api: 'v1', type: 'pod', namespace: 'default', name: 'my-pod') do
+    it { should exist }
+    its('name') { should eq 'my-pod' }
   end
 end
