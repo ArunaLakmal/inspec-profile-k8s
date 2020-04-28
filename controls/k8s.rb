@@ -266,8 +266,8 @@ control "k8s-9" do
 
   ref "Follow for more info", url: "https://www.techcrumble.net"
 
-  describe k8sobject(api: 'v1', type: 'pod', namespace: 'default', name: 'my-pod') do
-    it { should exist }
+  describe "default namespace: pods" do
+    subject { k8sobject(api: 'v1', type: 'pod', namespace: 'default', name: 'my-pod') }
     its('name') { should eq 'my-pod' }
   end
 end
